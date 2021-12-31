@@ -1,0 +1,8 @@
+node_modules
+.pnpm*
+logseq-*
+logseq/
+.vscode
+src
+public
+trace.zip

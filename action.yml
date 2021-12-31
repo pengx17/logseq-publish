@@ -1,0 +1,24 @@
+name: 'Logseq App Publish'
+description: 'Publish your Logseq Graph'
+inputs:
+  dest:
+    description: 'export destination'
+    required: true
+    default: 'www'
+runs:
+  using: "composite"
+  steps:
+    - run: |
+      rm -rf ${{ inputs.dest }}
+      curl https://raw.githubusercontent.com/pengx17/logseq-publish/main/Dockerfile.exec -o Dockerfile
+      docker build -t tmp .
+      container_id=$(docker create $temp_tag_name)
+      docker cp $container_id:/home/logseq/graph-www ${{ inputs.dest }}
+      docker rm $container_id
+
+      git config --global user.name 'logseq app publish bot'
+      git config --global user.email 'logseq-publish-bot@users.noreply.github.com'
+      git add ${{ inputs.dest }}
+      git commit -am "skip ci: update ${{ inputs.dest }}"
+      git push
+    shell: bash

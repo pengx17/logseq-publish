@@ -1,0 +1,25 @@
+{
+  "name": "logseq-publish",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "extract-static": "zx ./prepare-electron-static.mjs",
+    "app-publish": "node ./publish.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pengx17/logseq-publish.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pengx17/logseq-publish/issues"
+  },
+  "homepage": "https://github.com/pengx17/logseq-publish#readme",
+  "dependencies": {
+    "electron": "15.1.2",
+    "playwright": "^1.16.3",
+    "yargs": "^17.3.1"
+  }
+}
