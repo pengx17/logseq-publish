@@ -12,7 +12,7 @@ runs:
         rm -rf ${{ inputs.dest }}
         curl https://raw.githubusercontent.com/pengx17/logseq-publish/main/Dockerfile.exec -o Dockerfile
         docker build -t tmp .
-        container_id=$(docker create $temp_tag_name)
+        container_id=$(docker create tmp)
         docker cp $container_id:/home/logseq/graph-www ${{ inputs.dest }}
         docker rm $container_id
 
