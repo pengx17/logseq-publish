@@ -1,4 +1,4 @@
-name: 'Logseq App Publish'
+name: 'Logseq Publish'
 description: 'Publish your Logseq Graph'
 inputs:
   dest:
