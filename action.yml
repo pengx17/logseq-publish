@@ -16,6 +16,8 @@ runs:
         docker cp $container_id:/home/logseq/graph-www ${{ inputs.dest }}
         docker rm $container_id
 
+        rm -f Dockerfile
+
         git config --global user.name 'logseq app publish bot'
         git config --global user.email 'logseq-publish-bot@users.noreply.github.com'
         git add ${{ inputs.dest }}
