@@ -60,10 +60,6 @@ async function main() {
     console.log("Page loaded!");
   });
 
-  page.evaluate(() => {
-    Object.assign(window, { __PLAYWRIGHT__: true });
-  });
-
   await page.waitForLoadState("domcontentloaded");
   await page.waitForFunction('window.document.title != "Loading"');
 

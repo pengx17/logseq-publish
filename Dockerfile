@@ -22,7 +22,7 @@ COPY deps.edn ./deps.edn
 RUN clj -e :ok
 
 # Build for static resources
-RUN git clone --depth 1 --branch logseq-graph-dir-backdoor https://github.com/pengx17/logseq.git
+RUN git clone --depth 1 --branch master https://github.com/logseq/logseq.git
 RUN cd /data/logseq && yarn && yarn release && mv ./static ./public && rm -r ./public/workspaces
 
 # From playwright
