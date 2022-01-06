@@ -9,7 +9,6 @@ runs:
   using: "composite"
   steps:
     - run: |
-        rm -rf ${{ inputs.dest }}
         curl https://raw.githubusercontent.com/pengx17/logseq-publish/main/Dockerfile.exec -o Dockerfile
         docker build -t tmp .
         container_id=$(docker create tmp)
