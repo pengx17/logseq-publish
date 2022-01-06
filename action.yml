@@ -5,6 +5,9 @@ inputs:
     description: 'export destination'
     required: true
     default: 'www'
+branding:
+  icon: 'arrow-up-circle'  
+  color: 'green'
 runs:
   using: "composite"
   steps:
