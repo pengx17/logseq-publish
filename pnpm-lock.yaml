@@ -2,12 +2,12 @@ lockfileVersion: 5.3
 
 specifiers:
   electron: 15.1.2
-  playwright-core: ^1.17.0
+  playwright: ^1.17.0
   yargs: ^17.3.1
 
 dependencies:
   electron: 15.1.2
-  playwright-core: 1.17.1
+  playwright: 1.17.1
   yargs: 17.3.1
 
 packages:
@@ -604,6 +604,19 @@ packages:
       ws: 7.5.6
       yauzl: 2.10.0
       yazl: 2.5.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /playwright/1.17.1:
+    resolution: {integrity: sha512-DisCkW9MblDJNS3rG61p8LiLA2WA7IY/4A4W7DX4BphWe/HuWjKmGQptuk4NVIh5UuSwXpW/jaH2+ZgjHs3GMA==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      playwright-core: 1.17.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
