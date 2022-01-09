@@ -25,28 +25,9 @@ RUN clj -e :ok
 RUN git clone --depth 1 --branch master https://github.com/logseq/logseq.git
 RUN cd /data/logseq && yarn && yarn release && mv ./static ./public && rm -r ./public/workspaces
 
-FROM ubuntu:focal
-ARG DEBIAN_FRONTEND=noninteractive
-ARG TZ=America/Los_Angeles
-
-RUN apt-get update && \
-  # Install node16
-  apt-get install -y curl wget && \
-  curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-  apt-get install -y nodejs && \
-  # Feature-parity with node.js base images.
-  apt-get install -y --no-install-recommends git openssh-client && \
-  npm install -g yarn && \
-  # Install Python 3.8
-  apt-get install -y python3.8 python3-pip && \
-  update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-  update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
-  update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
-  # clean apt cache
-  rm -rf /var/lib/apt/lists/* && \
-  # Create the pwuser
-  adduser pwuser
-
+# From playwright
+# https://playwright.dev/docs/docker/
+FROM mcr.microsoft.com/playwright:focal
 RUN npm install -g pnpm --force
 
 WORKDIR /home/logseq
