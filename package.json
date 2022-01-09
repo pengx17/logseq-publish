@@ -19,7 +19,7 @@
   "homepage": "https://github.com/pengx17/logseq-publish#readme",
   "dependencies": {
     "electron": "15.1.2",
-    "playwright-core": "^1.17.0",
+    "playwright": "^1.17.0",
     "yargs": "^17.3.1"
   }
 }
