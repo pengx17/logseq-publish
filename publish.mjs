@@ -1,5 +1,5 @@
 // @ts-check
-import { _electron as electron } from "playwright";
+import { _electron as electron } from "playwright-core";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import path from "path";
