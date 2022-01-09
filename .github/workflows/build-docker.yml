@@ -3,7 +3,8 @@ name: Build-Docker
 on:
   workflow_dispatch:
   workflow_call:
-
+  schedule:
+    - cron: '0 16 * * *' # run at 2 AM UTC
 jobs:
   build-docker:
     runs-on: ubuntu-latest
