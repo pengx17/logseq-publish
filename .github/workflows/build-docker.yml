@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   workflow_call:
   schedule:
-    - cron: '0 16 * * *' # run at 2 AM UTC
+    - cron: '0 2 * * *' # run at 2 AM UTC
 jobs:
   build-docker:
     runs-on: ubuntu-latest
