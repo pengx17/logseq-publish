@@ -6,6 +6,8 @@ on:
       tag:
         description: "Logseq branch tag"
         default: "nightly"
+        required: true
+        type: string
 
 jobs:
   build-docker:
@@ -19,6 +21,7 @@ jobs:
 
       - name: Build Docker
         run: |
+          echo Build Tag ${{ inputs.tag }}
           docker build --build-arg LOGSEQ_TAG=${{ inputs.tag }} -t ghcr.io/pengx17/logseq-publish:${{ inputs.tag }} .
 
       - name: Docker Login
