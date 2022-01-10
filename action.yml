@@ -38,7 +38,8 @@ runs:
       run: |
         yarn
         yarn release
-        mv ./static ../public
+        mv ./static ./public
+        cp -r ./public ../
     - name: Install pnpm
       shell: bash
       run: |
