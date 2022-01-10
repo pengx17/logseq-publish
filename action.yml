@@ -17,44 +17,9 @@ branding:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@v2
+    - uses: addnab/docker-run-action@v3
       with:
-        distribution: "zulu"
-        java-version: '8'
-    - uses: DeLaGuardo/setup-clojure@3.7
-      with:
-        cli: 1.10.1.693
-        lein: latest
-        boot: latest
-    - name: Checkout Logseq code
-      uses: actions/checkout@v2
-      with:
-        repository: "logseq/logseq"
-        ref: ${{ inputs.version }}
-        path: "logseq"
-    - name: Build Logseq static
-      working-directory: "logseq"
-      shell: bash
-      run: |
-        yarn
-        yarn release
-        mv ./static ./public
-        cp -r ./public ../
-    - name: Install pnpm
-      shell: bash
-      run: |
-        npm install -g pnpm
-    - name: Install deps
-      shell: bash
-      run: |
-        pnpm i
-    - name: Install static
-      working-directory: "public/static"
-      shell: bash
-      run: |
-        yarn install
-        yarn rebuild:better-sqlite3
-    - name: Build graph
-      shell: bash
-      run: |
-        xvfb-run node publish.mjs -p graph
+        image: ghcr.io/pengx17/logseq-publish:latest
+        options: -v ${{ github.workspace }}:/home/logseq/graph
+        run: |
+          xvfb-run node publish.mjs -p graph
