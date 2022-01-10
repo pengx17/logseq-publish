@@ -36,8 +36,8 @@ function checkGraphDistPathExist() {
   }
 }
 
-async function delay() {
-  return await new Promise((resolve) => setTimeout(resolve, 1000));
+async function delay(ts = 1000) {
+  return await new Promise((resolve) => setTimeout(resolve, ts));
 }
 
 if (!graphFolderExists) {
@@ -118,6 +118,9 @@ async function main() {
       process.exit(1);
     }
   }
+
+  // TODO: have a better way to check if the export is done
+  await delay(10 * 1000);
 
   await context.tracing.stop({ path: "trace.zip" });
   console.log("Graph exported. closing ....");

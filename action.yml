@@ -1,19 +1,25 @@
-name: 'Logseq Publish'
-description: 'Publish your Logseq Graph'
+name: "Logseq Publish"
+description: "Publish your Logseq Graph"
 inputs:
   dest:
-    description: 'export destination'
+    description: "export destination"
     required: true
-    default: 'www'
+    default: "www"
+  version:
+    description: >
+      Logseq version to use. Note, not all version are supported.
+      Use "latest" if you are not sure what to put here
+    required: true
+    default: "latest"
 branding:
-  icon: 'arrow-up-circle'  
-  color: 'green'
+  icon: "arrow-up-circle"
+  color: "green"
 runs:
   using: "composite"
   steps:
     - run: |
         curl https://raw.githubusercontent.com/pengx17/logseq-publish/main/Dockerfile.exec -o Dockerfile
-        docker build -t tmp .
+        docker build --build-arg VERSION=${{ inputs.version }} -t tmp .
         container_id=$(docker create tmp)
         docker cp $container_id:/home/logseq/graph-www ${{ inputs.dest }}
         docker rm $container_id

@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "extract-static": "zx ./prepare-electron-static.mjs",
     "app-publish": "node ./publish.mjs"
   },
   "repository": {

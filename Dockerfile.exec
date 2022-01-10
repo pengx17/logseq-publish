@@ -1,4 +1,5 @@
-FROM ghcr.io/pengx17/logseq-publish@sha256:4de55b3bff57def16a30a129280122c04b22c1aa550f5da9e06d674cc72ad90d
+ARG VERSION
+FROM ghcr.io/pengx17/logseq-publish:${VERSION}
 
 WORKDIR /home/logseq
 COPY . ./graph
