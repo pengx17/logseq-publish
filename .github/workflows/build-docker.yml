@@ -35,4 +35,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Docker Image
-        run: docker push ghcr.io/pengx17/logseq-publish:latest
+        run: docker push ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }}
