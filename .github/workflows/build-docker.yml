@@ -22,7 +22,10 @@ jobs:
       - name: Build Docker
         run: |
           echo Build Tag ${{ inputs.tag }}
-          docker build --build-arg LOGSEQ_TAG=${{ inputs.tag }} -t ghcr.io/pengx17/logseq-publish:${{ inputs.tag }} .
+          docker build \
+            --build-arg LOGSEQ_TAG=${{ github.event.inputs.tag }} \
+            -t ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }} \
+            .
 
       - name: Docker Login
         uses: docker/login-action@v1
