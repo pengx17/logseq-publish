@@ -3,6 +3,7 @@
 # Builder image
 FROM clojure:openjdk-18-tools-deps-buster as builder
 
+ARG LOGSEQ_TAG=nightly
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
@@ -22,7 +23,7 @@ COPY deps.edn ./deps.edn
 RUN clj -e :ok
 
 # Build for static resources
-RUN git clone --depth 1 --branch master https://github.com/logseq/logseq.git
+RUN git clone --depth 1 --branch $LOGSEQ_TAG --single-branch https://github.com/logseq/logseq.git
 RUN cd /data/logseq && yarn && yarn release && mv ./static ./public && rm -r ./public/workspaces
 
 # From playwright
