@@ -8,9 +8,9 @@ inputs:
   version:
     description: >
       Logseq version to use. Note, not all version are supported.
-      Use "latest" if you are not sure what to put here
+      Use "master" if you are not sure what to put here
     required: true
-    default: "latest"
+    default: "master"
 branding:
   icon: "arrow-up-circle"
   color: "green"
