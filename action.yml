@@ -17,11 +17,38 @@ branding:
 runs:
   using: "composite"
   steps:
-    - run: |
-        curl https://raw.githubusercontent.com/pengx17/logseq-publish/main/Dockerfile.exec -o Dockerfile
-        docker build --build-arg VERSION=${{ inputs.version }} -t tmp .
-        container_id=$(docker create tmp)
-        docker cp $container_id:/home/logseq/graph-www ${{ inputs.dest }}
-        docker rm $container_id
-        rm -f Dockerfile
+    - uses: actions/setup-java@v2
+      with:
+        java-version: '18'
+    - uses: DeLaGuardo/setup-clojure@3.7
+    - name: Checkout Logseq code
+      uses: actions/checkout@v2
+      with:
+        repository: "logseq/logseq"
+        ref: ${ inputs.version }
+        path: "logseq"
+    - name: Build Logseq static
+      working-directory: "logseq"
       shell: bash
+      run: |
+        yarn
+        yarn release
+        mv ./static ../public
+    - name: Install pnpm
+      shell: bash
+      run: |
+        npm install -g pnpm
+    - name: Install deps
+      shell: bash
+      run: |
+        pnpm i
+    - name: Install static
+      working-directory: "public/static"
+      shell: bash
+      run: |
+        yarn install
+        yarn rebuild:better-sqlite3
+    - name: Build graph
+      shell: bash
+      run: |
+        xvfb-run node publish.mjs -p graph
