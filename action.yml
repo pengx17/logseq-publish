@@ -30,7 +30,7 @@ runs:
       uses: actions/checkout@v2
       with:
         repository: "logseq/logseq"
-        ref: ${ inputs.version }
+        ref: ${{ inputs.version }}
         path: "logseq"
     - name: Build Logseq static
       working-directory: "logseq"
