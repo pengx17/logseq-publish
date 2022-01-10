@@ -19,8 +19,8 @@ runs:
   steps:
     - uses: actions/setup-java@v2
       with:
-        distribution: "temurin"
-        java-version: '18'
+        distribution: "zulu"
+        java-version: '8'
     - uses: DeLaGuardo/setup-clojure@3.7
     - name: Checkout Logseq code
       uses: actions/checkout@v2
