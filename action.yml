@@ -22,6 +22,10 @@ runs:
         distribution: "zulu"
         java-version: '8'
     - uses: DeLaGuardo/setup-clojure@3.7
+      with:
+        cli: 1.10.1.693
+        lein: latest
+        boot: latest
     - name: Checkout Logseq code
       uses: actions/checkout@v2
       with:
