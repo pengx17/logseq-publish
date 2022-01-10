@@ -10,10 +10,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Logseq Publish
         uses: ./
-      - uses: actions/upload-artifact@v2
+      - name: Upload build result for test
+        uses: actions/upload-artifact@v2
         with:
           name: result
           path: www
-      - uses: actions/upload-artifact@v2
+      - name: Upload trace log
+        uses: actions/upload-artifact@v2
         with:
           path: trace.zip
