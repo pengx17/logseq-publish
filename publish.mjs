@@ -120,7 +120,7 @@ async function main() {
   }
 
   // TODO: have a better way to check if the export is done
-  await delay(10 * 1000);
+  await delay(3 * 1000);
 
   await context.tracing.stop({ path: "trace.zip" });
   console.log("Graph exported. closing ....");
