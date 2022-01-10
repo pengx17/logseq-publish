@@ -15,7 +15,7 @@ Firstly, add this step to your Github workflow. You can refer to My Example Grap
 steps:
   - uses: actions/checkout@v2
   - name: Logseq Publish 🚩
-    uses: pengx17/logseq-publish@0.1.0
+    uses: pengx17/logseq-publish@v0.1
   - name: add a nojekyll file # to make sure asset paths are correctly identified
     run: touch $GITHUB_WORKSPACE/www/.nojekyll
   - name: Deploy 🚀
