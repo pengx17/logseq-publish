@@ -2,12 +2,10 @@ name: Build-Docker
 
 on:
   workflow_dispatch:
-  workflow_call:
-
-inputs:
-  tag:
-    description: "Logseq branch tag"
-    default: "nightly"
+    inputs:
+      tag:
+        description: "Logseq branch tag"
+        default: "nightly"
 
 jobs:
   build-docker:
