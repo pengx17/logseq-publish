@@ -19,7 +19,7 @@ runs:
   steps:
     - uses: addnab/docker-run-action@v3
       with:
-        image: ghcr.io/pengx17/logseq-publish:${{ input.version }}
+        image: "ghcr.io/pengx17/logseq-publish:${{ input.version }}"
         options: -v ${{ github.workspace }}:/home/logseq/graph
         run: |
           xvfb-run node publish.mjs -p graph
