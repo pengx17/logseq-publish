@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Logseq branch tag"
-        default: "nightly"
+        description: "Logseq branch/tag"
+        default: "master"
         required: true
         type: string
 
@@ -14,19 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-
-      - name: Build Docker
-        run: |
-          echo Build Tag ${{ inputs.tag }}
-          docker build \
-            --build-arg LOGSEQ_TAG=${{ github.event.inputs.tag }} \
-            -t ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }} \
-            .
-
       - name: Docker Login
         uses: docker/login-action@v1
         with:
@@ -34,5 +21,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish Docker Image
-        run: docker push ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }}
+          build-args: |
+            LOGSEQ_TAG=${{ github.event.inputs.tag }}
