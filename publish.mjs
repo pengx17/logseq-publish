@@ -36,6 +36,20 @@ function checkGraphDistPathExist() {
   }
 }
 
+function checkGraphPublishing() {
+  try {
+    if (
+      fs
+        .statSync(path.join(graphDistPath, "static", "js", "publishing"))
+        .isDirectory()
+    ) {
+      return true;
+    }
+  } catch (err) {
+    return false;
+  }
+}
+
 async function delay(ts = 1000) {
   return await new Promise((resolve) => setTimeout(resolve, ts));
 }
@@ -110,7 +124,7 @@ async function main() {
   await page.click(`a:text("Export public pages")`);
 
   let TTT = 30;
-  while (!checkGraphDistPathExist()) {
+  while (!checkGraphDistPathExist() && !checkGraphPublishing()) {
     await delay();
     TTT--;
     if (TTT === 0) {
@@ -119,8 +133,7 @@ async function main() {
     }
   }
 
-  // TODO: have a better way to check if the export is done
-  await delay(3 * 1000);
+  await delay(1000);
 
   await context.tracing.stop({ path: "trace.zip" });
   console.log("Graph exported. closing ....");
