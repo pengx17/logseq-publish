@@ -1,0 +1,31 @@
+name: Build-Logseq
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Logseq branch/tag"
+        default: "master"
+        required: true
+        type: string
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/pengx17/logseq-base:${{ github.event.inputs.tag }}
+          build-args: |
+            LOGSEQ_TAG=${{ github.event.inputs.tag }}
