@@ -26,15 +26,21 @@ try {
   //
 }
 
+let distPathExists = false;
+
 function checkGraphDistPathExist() {
   try {
     if (
-      graphDistPath &&
-      fs.statSync(path.join(graphDistPath, "static")).isDirectory()
+      distPathExists ||
+      (graphDistPath &&
+        fs.statSync(path.join(graphDistPath, "static")).isDirectory())
     ) {
+      console.log("checkGraphDistPathExist: true");
+      distPathExists = true;
       return true;
     }
   } catch (err) {
+    console.log("checkGraphDistPathExist: false");
     return false;
   }
 }
@@ -46,15 +52,13 @@ function checkGraphPublishing() {
         .statSync(path.join(graphDistPath, "static", "js", "publishing"))
         .isDirectory()
     ) {
+      console.log("publishing ...");
       return true;
     }
   } catch (err) {
+    console.log("publishing ... done");
     return false;
   }
-}
-
-async function delay(ts = 1000) {
-  return await new Promise((resolve) => setTimeout(resolve, ts));
 }
 
 if (!graphFolderExists) {
@@ -130,9 +134,11 @@ async function main() {
   await page.click("a.menu-link >> text=Export graph");
   await page.click(`a:text("Export public pages")`);
 
+  await page.waitForTimeout(1000);
+
   let TTT = 30;
   while (!checkGraphDistPathExist() || checkGraphPublishing()) {
-    await delay();
+    await page.waitForTimeout(1000);
     TTT--;
     if (TTT === 0) {
       console.log("export timeout");
@@ -140,7 +146,7 @@ async function main() {
     }
   }
 
-  await delay(1000);
+  await page.waitForTimeout(1000);
 
   await context.tracing.stop({ path: "trace.zip" });
   console.log("Graph exported. closing ....");
