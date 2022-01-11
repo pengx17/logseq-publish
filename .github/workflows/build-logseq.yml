@@ -26,6 +26,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          file: Dockerfile.logseq
           tags: ghcr.io/pengx17/logseq-base:${{ github.event.inputs.tag }}
           build-args: |
             LOGSEQ_TAG=${{ github.event.inputs.tag }}
