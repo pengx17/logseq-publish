@@ -87,12 +87,14 @@ async function main() {
     [graphPath]
   );
 
-  const hasOpenButton = await page.$("#head >> .button >> text=Open");
+  await page.waitForSelector('#head');
+
+  const hasOpenButton = await page.$("a.button >> span:has-text('Open')");
   if (hasOpenButton) {
-    await page.click("#head >> .button >> text=Open");
+    await page.click("#head >> .button >> text=Open", { force: true });
   } else {
     if (!(await page.$(".ls-left-sidebar-open"))) {
-      await page.click(".cp__header-left-menu.button");
+      await page.click(".cp__header-left-menu.button", { force: true });
     }
     await page.click("#left-sidebar >> #repo-switch");
     await page.click("text=Add new graph");
@@ -101,9 +103,11 @@ async function main() {
   }
 
   await page.waitForTimeout(3000); // ?
+
+  // Parsing files
   await page.waitForSelector(':has-text("Parsing files")', {
     state: "hidden",
-    timeout: 1000 * 60 * 5,
+    timeout: 1000 * 60 * 15, // 15 minutes
   });
 
   await page.waitForFunction('window.document.title != "Loading"');
