@@ -3,7 +3,7 @@
 # Builder image
 FROM clojure:openjdk-18-tools-deps-buster as builder
 
-ARG LOGSEQ_TAG=nightly
+ARG LOGSEQ_TAG
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
