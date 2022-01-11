@@ -124,7 +124,7 @@ async function main() {
   await page.click(`a:text("Export public pages")`);
 
   let TTT = 30;
-  while (!checkGraphDistPathExist() && !checkGraphPublishing()) {
+  while (!checkGraphDistPathExist() || checkGraphPublishing()) {
     await delay();
     TTT--;
     if (TTT === 0) {
