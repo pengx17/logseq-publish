@@ -28,7 +28,10 @@ try {
 
 function checkGraphDistPathExist() {
   try {
-    if (graphDistPath && fs.statSync(graphDistPath).isDirectory()) {
+    if (
+      graphDistPath &&
+      fs.statSync(path.join(graphDistPath, "static")).isDirectory()
+    ) {
       return true;
     }
   } catch (err) {
@@ -87,7 +90,7 @@ async function main() {
     [graphPath]
   );
 
-  await page.waitForSelector('#head');
+  await page.waitForSelector("#head");
 
   const hasOpenButton = await page.$("a.button >> span:has-text('Open')");
   if (hasOpenButton) {
