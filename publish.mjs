@@ -12,6 +12,8 @@ const argv = yargs(hideBin(process.argv))
   })
   .parse();
 
+const traceFile = "trace.zip";
+
 // @ts-ignore
 const graphPath = path.resolve(process.cwd(), argv.path);
 const graphDistPath = path.resolve(process.cwd(), graphPath + "-www");
@@ -141,6 +143,7 @@ async function main() {
     await page.waitForTimeout(1000);
     TTT--;
     if (TTT === 0) {
+      await context.tracing.stop({ path: traceFile });
       console.log("export timeout");
       process.exit(1);
     }
@@ -148,7 +151,7 @@ async function main() {
 
   await page.waitForTimeout(1000);
 
-  await context.tracing.stop({ path: "trace.zip" });
+  await context.tracing.stop({ path: traceFile });
   console.log("Graph exported. closing ....");
   process.exit(0);
 }
