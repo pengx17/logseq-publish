@@ -17,6 +17,9 @@ branding:
 runs:
   using: "composite"
   steps:
+    - name: Create dest before running docker
+      shell: bash
+      run: mkdir -p ${{ github.workspace }}/${{ inputs.dest }}
     - uses: addnab/docker-run-action@v3
       with:
         image: "ghcr.io/pengx17/logseq-publish:${{ inputs.version }}"
