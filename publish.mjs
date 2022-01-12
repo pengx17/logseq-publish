@@ -37,7 +37,9 @@ function checkGraphDistPathExist() {
       (graphDistPath &&
         fs.statSync(path.join(graphDistPath, "static")).isDirectory())
     ) {
-      console.log("checkGraphDistPathExist: true");
+      if (!distPathExists) {
+        console.log("checkGraphDistPathExist: true");
+      }
       distPathExists = true;
       return true;
     }
