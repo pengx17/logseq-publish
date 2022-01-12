@@ -26,12 +26,21 @@ try {
   //
 }
 
+let distPathExists = false;
+
 function checkGraphDistPathExist() {
   try {
-    if (graphDistPath && fs.statSync(graphDistPath).isDirectory()) {
+    if (
+      distPathExists ||
+      (graphDistPath &&
+        fs.statSync(path.join(graphDistPath, "static")).isDirectory())
+    ) {
+      console.log("checkGraphDistPathExist: true");
+      distPathExists = true;
       return true;
     }
   } catch (err) {
+    console.log("checkGraphDistPathExist: false");
     return false;
   }
 }
@@ -43,15 +52,13 @@ function checkGraphPublishing() {
         .statSync(path.join(graphDistPath, "static", "js", "publishing"))
         .isDirectory()
     ) {
+      console.log("publishing ...");
       return true;
     }
   } catch (err) {
+    console.log("publishing ... done");
     return false;
   }
-}
-
-async function delay(ts = 1000) {
-  return await new Promise((resolve) => setTimeout(resolve, ts));
 }
 
 if (!graphFolderExists) {
@@ -87,12 +94,14 @@ async function main() {
     [graphPath]
   );
 
-  const hasOpenButton = await page.$("#head >> .button >> text=Open");
+  await page.waitForSelector("#head");
+
+  const hasOpenButton = await page.$("a.button >> span:has-text('Open')");
   if (hasOpenButton) {
-    await page.click("#head >> .button >> text=Open");
+    await page.click("#head >> .button >> text=Open", { force: true });
   } else {
     if (!(await page.$(".ls-left-sidebar-open"))) {
-      await page.click(".cp__header-left-menu.button");
+      await page.click(".cp__header-left-menu.button", { force: true });
     }
     await page.click("#left-sidebar >> #repo-switch");
     await page.click("text=Add new graph");
@@ -101,9 +110,11 @@ async function main() {
   }
 
   await page.waitForTimeout(3000); // ?
+
+  // Parsing files
   await page.waitForSelector(':has-text("Parsing files")', {
     state: "hidden",
-    timeout: 1000 * 60 * 5,
+    timeout: 1000 * 60 * 15, // 15 minutes
   });
 
   await page.waitForFunction('window.document.title != "Loading"');
@@ -123,9 +134,11 @@ async function main() {
   await page.click("a.menu-link >> text=Export graph");
   await page.click(`a:text("Export public pages")`);
 
+  await page.waitForTimeout(1000);
+
   let TTT = 30;
   while (!checkGraphDistPathExist() || checkGraphPublishing()) {
-    await delay();
+    await page.waitForTimeout(1000);
     TTT--;
     if (TTT === 0) {
       console.log("export timeout");
@@ -133,7 +146,7 @@ async function main() {
     }
   }
 
-  await delay(1000);
+  await page.waitForTimeout(1000);
 
   await context.tracing.stop({ path: "trace.zip" });
   console.log("Graph exported. closing ....");

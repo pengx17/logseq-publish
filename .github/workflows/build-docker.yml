@@ -1,14 +1,17 @@
-name: Build-Docker
+name: Build-Publish-Runtime
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Logseq branch/tag"
+        description: "Tag of ghcr.io/pengx17/logseq-base"
         default: "master"
         required: true
         type: string
-
+      latest:
+        description: "push as latest"
+        default: false
+        type: boolean
 jobs:
   build-docker:
     runs-on: ubuntu-latest
@@ -21,11 +24,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
-        id: docker_build
+      - name: Build and push (no latest)
+        if: ${{ !github.event.inputs.latest }}
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }}
+          build-args: |
+            LOGSEQ_TAG=${{ github.event.inputs.tag }}
+
+      - name: Build and push (both latest & tag)
+        if: ${{ github.event.inputs.latest }}
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }}
+            ghcr.io/pengx17/logseq-publish:latest
           build-args: |
             LOGSEQ_TAG=${{ github.event.inputs.tag }}
