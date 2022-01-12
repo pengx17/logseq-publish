@@ -17,11 +17,14 @@ branding:
 runs:
   using: "composite"
   steps:
-    - run: |
-        curl https://raw.githubusercontent.com/pengx17/logseq-publish/main/Dockerfile.exec -o Dockerfile
-        docker build --build-arg VERSION=${{ inputs.version }} -t tmp .
-        container_id=$(docker create tmp)
-        docker cp $container_id:/home/logseq/graph-www ${{ inputs.dest }}
-        docker rm $container_id
-        rm -f Dockerfile
+    - name: Create dest before running docker
       shell: bash
+      run: mkdir -p ${{ github.workspace }}/${{ inputs.dest }}
+    - uses: addnab/docker-run-action@v3
+      with:
+        image: "ghcr.io/pengx17/logseq-publish:${{ inputs.version }}"
+        options: |
+          -v ${{ github.workspace }}:/home/logseq/graph -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
+        run: |
+          xvfb-run node publish.mjs -p graph
+          cp trace.zip ./graph

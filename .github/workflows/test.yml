@@ -1,0 +1,21 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Logseq Publish
+        uses: ./
+      - name: Upload build result for test
+        uses: actions/upload-artifact@v2
+        with:
+          name: result
+          path: www
+      - name: Upload trace log
+        uses: actions/upload-artifact@v2
+        with:
+          path: trace.zip

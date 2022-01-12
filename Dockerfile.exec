@@ -1,7 +1,0 @@
-ARG VERSION
-FROM ghcr.io/pengx17/logseq-publish:${VERSION}
-
-WORKDIR /home/logseq
-COPY . ./graph
-
-RUN xvfb-run node publish.mjs -p ./graph && cp trace.zip ./graph-www
