@@ -161,7 +161,6 @@ async function main() {
   } catch (err) {
     console.error(err);
   } finally {
-    await electronApp.close();
     if (argv.trace) {
       await context.tracing.stop({ path: traceFile });
       console.log("Trace file saved to " + traceFile);
