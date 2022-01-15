@@ -32,4 +32,11 @@ runs:
         run: |
           xvfb-run node publish.mjs -p graph -t ${{ inputs.trace }}
           exit $?
+    - name: Archive trace file
+      if: ${{ always() && inputs.trace }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: trace
+        path: |
+          www/trace.zip
 
