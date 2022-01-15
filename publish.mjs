@@ -5,6 +5,8 @@ import { hideBin } from "yargs/helpers";
 import path from "path";
 import fs from "fs";
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function main() {
   const argv = await yargs(hideBin(process.argv))
     .option("path", {
@@ -120,7 +122,7 @@ async function main() {
       await page.click('h1:has-text("Open a local directory")');
     }
 
-    await page.waitForTimeout(3000); // ?
+    await delay(3000); // ?
 
     // Parsing files
     await page.waitForSelector(':has-text("Parsing files")', {
@@ -145,11 +147,11 @@ async function main() {
     await page.click("a.menu-link >> text=Export graph");
     await page.click(`a:text("Export public pages")`);
 
-    await page.waitForTimeout(1000);
+    await delay(1000);
 
     let TTT = 30;
     while (!checkGraphDistPathExist() || checkGraphPublishing()) {
-      await page.waitForTimeout(1000);
+      await delay(1000);
       TTT--;
       if (TTT === 0) {
         throw "Export Timeout";
