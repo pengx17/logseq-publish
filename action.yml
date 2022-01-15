@@ -31,5 +31,5 @@ runs:
           -v ${{ github.workspace }}:/home/logseq/graph -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
         run: |
           xvfb-run node publish.mjs -p graph -t ${{ inputs.trace }}
-          if $? ; then
+          exit $?
 
