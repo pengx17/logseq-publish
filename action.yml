@@ -11,6 +11,10 @@ inputs:
       Use "master" if you are not sure what to put here
     required: true
     default: "master"
+  trace:
+    description: >
+      Whether or not to generate trace file for debugging.  
+    default: true
 branding:
   icon: "arrow-up-circle"
   color: "green"
@@ -26,5 +30,6 @@ runs:
         options: |
           -v ${{ github.workspace }}:/home/logseq/graph -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
         run: |
-          xvfb-run node publish.mjs -p graph
-          cp trace.zip ./graph
+          xvfb-run node publish.mjs -p graph -t ${{ inputs.trace }}
+          if $? ; then
+
