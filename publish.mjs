@@ -14,6 +14,7 @@ async function main() {
     .option("trace", {
       alias: "t",
       type: "boolean",
+      default: true
     })
     .parse();
 
