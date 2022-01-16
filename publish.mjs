@@ -101,6 +101,11 @@ async function main() {
       "text=This is a demo graph, changes will not be saved until you open a local folder"
     );
 
+    await page.waitForSelector(':has-text("Loading")', {
+      state: "hidden",
+      timeout: 1000 * 15,
+    });
+
     // set next open directory
     page.evaluate(
       ([graphPath]) => {
