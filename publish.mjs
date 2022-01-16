@@ -97,6 +97,10 @@ async function main() {
     await page.waitForLoadState("domcontentloaded");
     await page.waitForFunction('window.document.title != "Loading"');
 
+    await page.waitForSelector(
+      "text=This is a demo graph, changes will not be saved until you open a local folder"
+    );
+
     // set next open directory
     page.evaluate(
       ([graphPath]) => {
