@@ -7,6 +7,12 @@ This action is the missing piece for achieving a complete CD workflow for your p
 - It will load your graph and publish it into `www` (this is configurable) folder.
 - Next, you can then deploy `www` folder with [JamesIves/github-pages-deploy-action](https://github.com/JamesIves/github-pages-deploy-action).
 
+## Example Logseq Graphs Published with this Action
+
+- https://docs.logseq.com/
+- https://note.xuanwo.io/
+- https://pengx17.github.io/knowledge-garden/
+
 ## Usage
 
 Firstly, add this step to your Github workflow. You can refer to My Example Graph's [workflows/main.yml](https://github.com/pengx17/knowledge-garden/blob/main/.github/workflows/main.yml) as an example.
