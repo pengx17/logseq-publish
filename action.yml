@@ -1,6 +1,10 @@
 name: "Logseq Publish"
 description: "Publish your Logseq Graph"
 inputs:
+  src:
+    description: "export source"
+    required: true
+    default: ""
   dest:
     description: "export destination"
     required: true
@@ -30,7 +34,7 @@ runs:
         options: |
           -v ${{ github.workspace }}:/home/logseq/graph -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
         run: |
-          xvfb-run node publish.mjs -p graph -t ${{ inputs.trace }}
+          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }}
           exit $?
     - name: Archive trace file
       if: ${{ always() && inputs.trace }}
