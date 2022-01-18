@@ -36,6 +36,7 @@ Whenever you push changes to your Github repo, your graph will be published to t
 
 ## All options
 
+- `src`: Publish graph src directory. Defaults to `` (empty string, root repo directory).
 - `dest`: Publish destination directory. Defaults to `www`.
 - `trace`: Whether or not to generate and publish trace file for debugging. This trace file will be uploaded as an artifact to the run. Defaults to `true`.
 
