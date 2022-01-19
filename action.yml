@@ -31,12 +31,10 @@ runs:
     - uses: addnab/docker-run-action@v3
       with:
         image: "ghcr.io/pengx17/logseq-publish:${{ inputs.version }}"
-        # running with WORKDIR /home/logseq
         options: |
-          -v ${{ github.workspace }}/${{ inputs.src }}:/home/logseq/graph \
-          -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
+          -v ${{ github.workspace }}:/home/logseq/graph -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
         run: |
-          xvfb-run node publish.mjs -p graph -t ${{ inputs.trace }} -o graph-www
+          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }} -o graph-www
           exit $?
     - name: Archive trace file
       if: ${{ always() && inputs.trace }}
@@ -44,5 +42,5 @@ runs:
       with:
         name: trace
         path: |
-          ${{ inputs.dest }}/trace.zip
+          www/trace.zip
 
