@@ -42,4 +42,4 @@ runs:
       with:
         name: trace
         path: |
-          {{ inputs.dest }}/trace.zip
+          ${{ inputs.dest }}/trace.zip
