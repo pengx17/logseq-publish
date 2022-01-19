@@ -42,5 +42,5 @@ runs:
       with:
         name: trace
         path: |
-          www/trace.zip
+          graph-www/trace.zip
 
