@@ -13,6 +13,10 @@ async function main() {
       alias: "p",
       type: "string",
     })
+    .option("output", {
+      alias: "o",
+      type: "string",
+    })
     .option("trace", {
       alias: "t",
       type: "boolean",
@@ -21,7 +25,7 @@ async function main() {
     .parse();
 
   const graphPath = path.resolve(process.cwd(), argv.path);
-  const graphDistPath = path.resolve(process.cwd(), graphPath + "-www");
+  const graphDistPath = path.resolve(process.cwd(), argv.output || (graphPath + "-www"));
 
   const traceFile = path.join(graphDistPath, "trace.zip");
 
