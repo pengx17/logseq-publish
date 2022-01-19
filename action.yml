@@ -32,9 +32,9 @@ runs:
       with:
         image: "ghcr.io/pengx17/logseq-publish:${{ inputs.version }}"
         options: |
-          -v ${{ github.workspace }}:/home/logseq/graph -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
+          -v ${{ github.workspace }}:/home/logseq/graph
         run: |
-          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }} -o graph-www
+          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }} -o graph/${{ inputs.dest }}
           exit $?
     - name: Archive trace file
       if: ${{ always() && inputs.trace }}
@@ -42,5 +42,4 @@ runs:
       with:
         name: trace
         path: |
-          www/trace.zip
-
+          {{ inputs.dest }}/trace.zip
