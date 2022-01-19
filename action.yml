@@ -34,7 +34,7 @@ runs:
         options: |
           -v ${{ github.workspace }}:/home/logseq/graph -v ${{ github.workspace }}/${{ inputs.dest }}:/home/logseq/graph-www
         run: |
-          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }}
+          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }} -o graph-www
           exit $?
     - name: Archive trace file
       if: ${{ always() && inputs.trace }}
