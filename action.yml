@@ -36,6 +36,10 @@ runs:
         run: |
           xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }} -o graph/${{ inputs.dest }}
           exit $?
+    - name: change exported files owner
+      shell: bash
+      run: |
+        sudo chown -R $USER: ${{ github.workspace }}/${{ inputs.dest }}
     - name: Archive trace file
       if: ${{ always() && inputs.trace }}
       uses: actions/upload-artifact@v2
