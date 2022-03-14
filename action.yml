@@ -16,6 +16,8 @@ inputs:
     required: true
     default: "master"
   trace:
+    type: boolean
+    required: false
     description: >
       Whether or not to generate trace file for debugging.  
     default: true
@@ -41,6 +43,7 @@ runs:
       run: |
         sudo chown -R $USER: ${{ github.workspace }}/${{ inputs.dest }}
     - name: Archive trace file
+      # always() makes sure this step will run even if previous step fails
       if: ${{ always() && inputs.trace }}
       uses: actions/upload-artifact@v2
       with:
