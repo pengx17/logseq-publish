@@ -3,13 +3,13 @@
 # Builder image
 FROM clojure:openjdk-18-tools-deps-buster as builder
 
-ARG LOGSEQ_TAG
+ARG LOGSEQ_TAG=master
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
   apt-get install -y nodejs
 
-RUN apt-get update && apt-get install ca-certificates && \
+RUN apt-get update && apt-get install ca-certificates build-essential && \
   wget --no-check-certificate -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
   apt-get update && \
