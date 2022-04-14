@@ -9,7 +9,7 @@ on:
         required: true
         type: string
       publish_tag:
-        description: "Alternative tag name for the same image"
+        description: "Tag of ghcr.io/pengx17/logseq-publish"
         required: true
         type: string
 
