@@ -44,16 +44,19 @@ Whenever you push changes to your Github repo, your graph will be published to t
 
 ## How it works
 
-Here is a [document](https://pengx17.github.io/knowledge-garden/#/page/logseq%20publish%20github%20action) about the story behind this action. 
+Here is a [document](https://pengx17.github.io/knowledge-garden/#/page/logseq%20publish%20github%20action) about the story behind this action.
 
 TLDR., this action will start Logseq desktop App in a Docker container, automate it by Playwright and finally load & publish the graph.
 
 Since most of the work is done in a [prepared Docker container](https://github.com/pengx17/logseq-publish/pkgs/container/logseq-publish), you can refer to [action.yml](./action.yml) and adapt it in other places without the need for GitHub actions.
 
+Hint: you can checkout the trace file in the action artifacts and view it in the [Playwright trace viewer](https://trace.playwright.dev/) to see what's going on in the action.
+
 ## Alternate usage examples
+
 - One-liner Powershell call with only Docker installed as prerequisite.
-	  Below assumes that your folder workfolder has "KnowledgeGraph" for the graph, and "HTMLOutput" for the output. Container will be created and discarded on the fly.
-	 	  
+  Below assumes that your folder workfolder has "KnowledgeGraph" for the graph, and "HTMLOutput" for the output. Container will be created and discarded on the fly.
+
 ```
 PS C:\> docker run -d -i  `
 	     --name LogSeqPublishContainer  `
@@ -63,4 +66,3 @@ PS C:\> docker run -d -i  `
 	     ghcr.io/pengx17/logseq-base:master  `
 	     bash -c "xvfb-run node /home/logseq/graph/publish.mjs -p /home/logseq/graph/KnowledgeGraph -t /home/logseq/graph/build_trace.txt -o /home/logseq/graph/HTMLOutput > /home/logseq/graph/build.log"
 ```
-	  
