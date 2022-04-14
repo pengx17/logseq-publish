@@ -52,6 +52,8 @@ Since most of the work is done in a [prepared Docker container](https://github.c
 
 Hint: you can checkout the trace file in the action artifacts and view it in the [Playwright trace viewer](https://trace.playwright.dev/) to see what's going on in the action.
 
+https://user-images.githubusercontent.com/584378/163351229-ba281c08-c29d-4cf5-8223-337bf80b8726.mp4
+
 ## Alternate usage examples
 
 - One-liner Powershell call with only Docker installed as prerequisite.
