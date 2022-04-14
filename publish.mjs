@@ -63,15 +63,10 @@ export async function loadLocalGraph(page, path) {
 
   await page.waitForSelector(':has-text("Parsing files")', {
     state: "hidden",
-    timeout: 1000 * 60 * 5,
+    timeout: 1000 * 60 * 15,
   });
 
-  const title = await page.title();
-  if (title === "Import data into Logseq" || title === "Add another repo") {
-    await page.click("a.button >> text=Skip");
-  }
-
-  await page.waitForFunction('window.document.title === "Logseq"');
+  await page.waitForFunction('window.document.title != "Loading"');
 
   console.log("Graph loaded for " + path);
 }
