@@ -3,14 +3,14 @@ name: Build-Publish-Runtime
 on:
   workflow_dispatch:
     inputs:
-      tag:
+      logseq_tag:
         description: "Tag of ghcr.io/pengx17/logseq-base"
         default: "master"
         required: true
         type: string
-      secondary_tag:
+      publish_tag:
         description: "Alternative tag name for the same image"
-        required: false
+        required: true
         type: string
 
 jobs:
@@ -29,16 +29,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.tag }}
+          tags: ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.publish_tag }}
           build-args: |
-            LOGSEQ_TAG=${{ github.event.inputs.tag }}
-
-      - name: Build and push (secondary_tag)
-        if: ${{ github.event.inputs.secondary_tag }}
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: |
-            ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.secondary_tag }}
-          build-args: |
-            LOGSEQ_TAG=${{ github.event.inputs.tag }}
+            LOGSEQ_TAG=${{ github.event.inputs.logseq_tag }}

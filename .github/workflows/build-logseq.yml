@@ -11,9 +11,6 @@ on:
         required: true
         type: string
 
-env:
-  TAGS_TO_PUBLISH: ${{ github.event.inputs.latest && 'ifTrue' || 'ifFalse' }}
-
 jobs:
   build-docker:
     runs-on: ubuntu-latest
