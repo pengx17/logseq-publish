@@ -12,9 +12,9 @@ inputs:
   version:
     description: >
       Logseq version to use. Note, not all version are supported.
-      Use "master" if you are not sure what to put here
+      Use "latest" if you are not sure what to put here
     required: true
-    default: "master"
+    default: "latest"
   trace:
     type: boolean
     required: false
