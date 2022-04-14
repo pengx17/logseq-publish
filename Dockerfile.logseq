@@ -3,7 +3,7 @@
 # Builder image
 FROM clojure:openjdk-18-tools-deps-buster as builder
 
-ARG LOGSEQ_TAG=master
+ARG LOGSEQ_TAG
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
@@ -18,10 +18,6 @@ RUN apt-get update && apt-get install ca-certificates && \
 
 WORKDIR /data/
 
-COPY deps.edn ./deps.edn
-# Cache clj deps
-# https://medium.com/@diogok/efficient-clojure-multistage-docker-images-with-java-and-native-image-c7c80b93c8
-RUN clj -e :ok
 
 # Build for static resources
 RUN git clone --depth 1 --branch $LOGSEQ_TAG --single-branch https://github.com/logseq/logseq.git

@@ -1,6 +1,8 @@
 name: Build-Logseq
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
   workflow_dispatch:
     inputs:
       tag:
