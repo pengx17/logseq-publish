@@ -30,4 +30,4 @@ jobs:
           file: Dockerfile.logseq
           tags: ghcr.io/pengx17/logseq-base:${{ github.event.inputs.tag }}
           build-args: |
-            LOGSEQ_TAG=${{ github.event.inputs.tag || "master" }}
+            LOGSEQ_TAG=${{ github.event.inputs.tag || 'master' }}
