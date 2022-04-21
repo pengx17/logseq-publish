@@ -1,4 +1,4 @@
-name: Manual Build
+name: Nightly Build
 
 on:
   schedule: # Every workday at the 2 P.M. (UTC) we run a scheduled nightly build
