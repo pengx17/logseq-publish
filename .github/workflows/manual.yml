@@ -1,4 +1,4 @@
-name: Build-Logseq
+name: Manual Build
 
 on:
   workflow_dispatch:
@@ -6,6 +6,10 @@ on:
       tag:
         description: "Logseq branch/tag"
         default: "master"
+        required: true
+        type: string
+      publish_tag:
+        description: "Tag of ghcr.io/pengx17/logseq-publish"
         required: true
         type: string
 
@@ -21,11 +25,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: "Build and Push [Base]"
         uses: docker/build-push-action@v2
         with:
           push: true
           file: Dockerfile.logseq
           tags: ghcr.io/pengx17/logseq-base:${{ github.event.inputs.tag }}
+          build-args: |
+            LOGSEQ_TAG=${{ github.event.inputs.tag }}
+
+      - name: "Build and Push [Publish]"
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/pengx17/logseq-publish:${{ github.event.inputs.publish_tag }}
           build-args: |
             LOGSEQ_TAG=${{ github.event.inputs.tag }}
