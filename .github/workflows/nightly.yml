@@ -1,0 +1,12 @@
+name: Manual Build
+
+on:
+  schedule: # Every workday at the 2 P.M. (UTC) we run a scheduled nightly build
+    - cron: '0 15 * * MON-FRI'
+
+jobs:
+  call-build-docker:
+    uses: ./.github/workflows/build-docker.yml
+    with:
+      tag: nightly
+      publish_tag: nightly

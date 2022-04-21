@@ -1,0 +1,43 @@
+name: Build Docker Images
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: "Logseq branch/tag"
+        default: "master"
+        required: true
+        type: string
+      publish_tag:
+        description: "Tag of ghcr.io/pengx17/logseq-publish"
+        required: true
+        type: string
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Build and Push [Base]"
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: Dockerfile.logseq
+          tags: ghcr.io/pengx17/logseq-base:${{ inputs.tag }}
+          build-args: |
+            LOGSEQ_TAG=${{ inputs.tag }}
+
+      - name: "Build and Push [Publish]"
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/pengx17/logseq-publish:${{ inputs.publish_tag }}
+          build-args: |
+            LOGSEQ_TAG=${{ inputs.tag }}
