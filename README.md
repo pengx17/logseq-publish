@@ -1,4 +1,4 @@
-# Logseg Publish Action
+# Logseq Publish Action
 
 Publish your [Logseq](http://github.com/logseq/logseq) graph with a GitHub Action. ✨
 
