@@ -39,10 +39,10 @@ export async function loadLocalGraph(page, path) {
   if (await onboardingOpenButton.isVisible()) {
     await onboardingOpenButton.click();
   } else {
-    await page.click("#left-menu.button");
     let sidebar = page.locator("#left-sidebar");
-    if (!/is-open/.test(await sidebar.getAttribute("class"))) {
+    if (!(await sidebar.getAttribute("class"))?.includes("is-open")) {
       await page.click("#left-menu.button");
+      await page.waitForSelector('#left-sidebar.is-open');
     }
 
     await page.click("#left-sidebar #repo-switch");
@@ -50,15 +50,6 @@ export async function loadLocalGraph(page, path) {
       '#left-sidebar .dropdown-wrapper >> text="Add new graph"',
       { state: "visible" }
     );
-
-    await page.click("text=Add new graph");
-    await page.waitForSelector('strong:has-text("Choose a folder")', {
-      state: "visible",
-    });
-    await page.click('strong:has-text("Choose a folder")');
-
-    const skip = page.locator('a:has-text("Skip")');
-    await skip.click();
   }
 
   await page.waitForSelector(':has-text("Parsing files")', {
@@ -149,7 +140,7 @@ async function main() {
     })
     .parse();
 
-  const graphPath = path.resolve(process.cwd(), argv.path);
+  const graphPath = path.resolve(process.cwd(), argv.path ?? "");
   const graphDistPath = path.resolve(
     process.cwd(),
     argv.output || graphPath + "-www"
