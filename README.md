@@ -71,17 +71,19 @@ PS C:\> docker run -d -i  `
 
 ## Local development
 
-    - clone https://github.com/logseq/logseq.git & https://github.com/pengx17/logseq-publish.git
-    - build logseq app
-    	- cd into logseq src root
-    	- run `yarn` && `yarn release`
-    - copy logseq static into `logseq-publish/public/static`
-    	- in logseq-publish root, run
-    		- `mkdir public`
-    		- `cp -r ../logseq/static ./public/static` (assuming logseq and logseq-publish is at the same folder)
-    - install logseq-publish deps
-    	- makes sure you have `pnpm` & Node > 16 installed
-    	- run `pnpm i`
-    - now you should be able to use `node publish.mjs` to run the script
-    - hint: use [Playwright Debugging tools | Playwright](https://playwright.dev/docs/debug) to debug the script
-    	- `PWDEBUG=1 node publish.mjs`
+- clone https://github.com/logseq/logseq.git & https://github.com/pengx17/logseq-publish.git
+- build logseq app
+	- cd into logseq src root
+  - change  `"name": "Logseq"` in `resources/package.json` to `"name": "something-else"`
+	- run `yarn` && `yarn release`
+- copy logseq static into `logseq-publish/public/static`
+	- in logseq-publish root, run
+		- `mkdir public`
+		- `cp -r ../logseq/static ./public/static` (assuming logseq and logseq-publish is at the same folder)
+- install logseq-publish deps
+	- makes sure you have `pnpm` & Node > 16 installed
+	- run `pnpm i`
+- now you should be able to use `node publish.mjs` to run the script
+
+Hints:
+- use [Playwright Debugging tools | Playwright](https://playwright.dev/docs/debug) to debug the script. `PWDEBUG=1 node publish.mjs`
