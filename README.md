@@ -17,6 +17,9 @@ This action is the missing piece for achieving a complete CD workflow for your p
 
 ## Usage
 
+A video walk through
+https://www.youtube.com/watch?v=UYqJcFEYUsY
+
 Firstly, add this step to your Github workflow. You can refer to My Example Graph's [workflows/main.yml](https://github.com/pengx17/knowledge-garden/blob/main/.github/workflows/main.yml) as an example.
 
 ```yml
