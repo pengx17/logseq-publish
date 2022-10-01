@@ -19,7 +19,7 @@ WORKDIR /data/
 
 # Build for static resources
 RUN git clone --depth 1 --branch $LOGSEQ_TAG --single-branch https://github.com/logseq/logseq.git
-RUN cd /data/logseq && git rev-parse HEAD && yarn && yarn release && mv ./static ./public && rm -r ./public/workspaces
+RUN cd /data/logseq && git rev-parse HEAD && yarn && yarn release && mv ./static ./public
 
 # From playwright
 # https://playwright.dev/docs/docker/
