@@ -107,7 +107,7 @@ async function publish(page, graphDistPath) {
 
   await setMockedOpenDirPath(page, graphDistPath);
 
-  await page.click(".button >> i.ti-dots");
+  await page.click(".button >> .ls-icon-dots");
   await page.click("a.menu-link >> text=Export graph");
   await page.click(`a:text("Export public pages")`);
 
