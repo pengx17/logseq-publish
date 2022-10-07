@@ -79,6 +79,7 @@ PS C:\> docker run -d -i  `
 	- cd into logseq src root
   - change  `"name": "Logseq"` in `resources/package.json` to `"name": "something-else"`
 	- run `yarn` && `yarn release`
+  - cd into `static` and run `yarn` && `yarn rebuild:better-sqlite3`
 - copy logseq static into `logseq-publish/public/static`
 	- in logseq-publish root, run
 		- `mkdir public`
