@@ -12,7 +12,6 @@ This action is the missing piece for achieving a complete CD workflow for your p
 - https://docs.logseq.com/
 - https://note.xuanwo.io/
 - https://pengx17.github.io/knowledge-garden/
-- https://whatiknown.strrl.dev/
 - https://io-oi.me/wiki/
 
 ## Usage
