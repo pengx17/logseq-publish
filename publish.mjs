@@ -65,6 +65,18 @@ export async function loadLocalGraph(page, path) {
 /**
  *
  * @param {import('playwright').Page} page
+ * @param {string} theme
+ */
+ export async function selectTheme(page, theme) {
+  await page.click(".button >> .ls-icon-dots");
+  await page.click("a.menu-link >> text=Settings");
+  await page.click(`li >> i.mode-${theme}`);
+  await page.click("a.ui__modal-close");
+ }
+
+/**
+ *
+ * @param {import('playwright').Page} page
  * @param {string} graphDistPath
  */
 async function publish(page, graphDistPath) {
@@ -133,6 +145,11 @@ async function main() {
       alias: "o",
       type: "string",
     })
+    .option("theme", {
+      type: "string",
+      choices: ['light', 'dark'],
+      default: 'light'
+    })
     .option("trace", {
       alias: "t",
       type: "boolean",
@@ -190,6 +207,7 @@ async function main() {
     });
 
     await loadLocalGraph(page, graphPath);
+    await selectTheme(page, argv.theme);
     await publish(page, graphDistPath);
 
     exportSuccess = true;
