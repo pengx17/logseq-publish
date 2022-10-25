@@ -21,6 +21,10 @@ inputs:
     description: >
       Whether or not to generate trace file for debugging.  
     default: true
+  theme:
+    description: "selected theme"
+    required: true
+    default: "light"
 branding:
   icon: "arrow-up-circle"
   color: "green"
@@ -36,7 +40,7 @@ runs:
         options: |
           -v ${{ github.workspace }}:/home/logseq/graph
         run: |
-          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }} -o graph/${{ inputs.dest }}
+          xvfb-run node publish.mjs -p graph/${{ inputs.src }} -t ${{ inputs.trace }} -o graph/${{ inputs.dest }} --theme ${{ inputs.theme }}
           exit $?
     - name: change exported files owner
       shell: bash
