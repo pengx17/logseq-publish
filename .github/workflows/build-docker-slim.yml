@@ -16,7 +16,7 @@ on:
         type: string
 
 env:
-  registry: unickcheng
+  registry: pengx17
 
 jobs:
   build-docker:
