@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  logseq:
+    # image: ghcr.io/pengx17/logseq-publish:master
+    image: ghcr.io/unickcheng/logseq-publish-slim:master
+    container_name: logseq
+    volumes:
+      - $PWD/demo:/home/logseq/graph
+    init: true
+    command: ["-p", "graph/", "-o", "graph/www", "-t", "true", "--theme", "light"]
+  nginx:
+    image: nginx:latest
+    container_name: logseq-web
+    restart: unless-stopped
+    volumes:
+      - $PWD/demo/www:/usr/share/nginx/html
+    ports:
+      - 18888:80
+
+# > commond
+# docker compose up -d
+# waiting 10s, vist localhost:18888
