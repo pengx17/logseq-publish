@@ -1,0 +1,42 @@
+# about cache: https://docs.docker.com/build/ci/github-actions/examples/#cache-backend-api
+
+name: Build Docker Images Slim
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Logseq branch/tag"
+        default: "master"
+        required: true
+        type: string
+      publish_tag:
+        description: "Tag of ghcr.io/pengx17/logseq-publish"
+        required: true
+        type: string
+
+env:
+  registry: unickcheng
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Build and Push [Slim]"
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          file: Dockerfile-slim
+          tags: ghcr.io/${{ env.registry }}/logseq-publish-slim:${{ inputs.publish_tag }}
+          cache-from: type=gha, scoop=slim
+          cache-to: type=gha,mode=max, scoop=slim
+          build-args: |
+            LOGSEQ_TAG=${{ inputs.tag }}
