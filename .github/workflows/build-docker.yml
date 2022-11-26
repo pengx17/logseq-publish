@@ -13,31 +13,38 @@ on:
         required: true
         type: string
 
+env:
+  registry: pengx17
+
 jobs:
   build-docker:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: Docker Login
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Build and Push [Base]"
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           file: Dockerfile.logseq
-          tags: ghcr.io/pengx17/logseq-base:${{ inputs.tag }}
+          tags: ghcr.io/${{ env.registry }}/logseq-base:${{ inputs.tag }}
           build-args: |
             LOGSEQ_TAG=${{ inputs.tag }}
 
       - name: "Build and Push [Publish]"
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ghcr.io/pengx17/logseq-publish:${{ inputs.publish_tag }}
+          context: .
+          tags: ghcr.io/${{ env.registry }}/logseq-publish:${{ inputs.publish_tag }}
           build-args: |
             LOGSEQ_TAG=${{ inputs.tag }}
