@@ -1,23 +1,32 @@
 version: '3.9'
 
+# > commond
+# !!! $PWD/demo should be replaced by your path
+# mkdir $PWD/demo/www
+# docker compose up -d
+# > vist localhost:18888
+
 services:
   logseq:
-    # image: ghcr.io/pengx17/logseq-publish:master
-    image: ghcr.io/unickcheng/logseq-publish-slim:master
+    # image: ghcr.io/pengx17/logseq-publish:latest
+    image: ghcr.io/unickcheng/logseq-publish:latest
     container_name: logseq
     volumes:
+      # !!! $PWD/demo should be replaced by your path
       - $PWD/demo:/home/logseq/graph
     init: true
-    command: ["-p", "graph/", "-o", "graph/www", "-t", "true", "--theme", "light"]
+    environment:
+      - LOGSEQ_THEME=dark
+      - LOGSEQ_IS_TRACE=true
   nginx:
+    depends_on:
+      logseq:
+        condition: service_completed_successfully
     image: nginx:latest
     container_name: logseq-web
     restart: unless-stopped
     volumes:
+      # !!! $PWD/demo should be replaced by your path
       - $PWD/demo/www:/usr/share/nginx/html
     ports:
       - 18888:80
-
-# > commond
-# docker compose up -d
-# waiting 10s, vist localhost:18888

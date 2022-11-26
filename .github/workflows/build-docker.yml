@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Docker Login
@@ -43,15 +44,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          context: .
           tags: ghcr.io/${{ env.registry }}/logseq-publish:${{ inputs.publish_tag }}
-          build-args: |
-            LOGSEQ_TAG=${{ inputs.tag }}
-      
-      - name: "Build and Push [Slim]"
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          file: Dockerfile-slim
-          tags: ghcr.io/${{ env.registry }}/logseq-publish-slim:${{ inputs.publish_tag }}
           build-args: |
             LOGSEQ_TAG=${{ inputs.tag }}
