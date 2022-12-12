@@ -37,4 +37,4 @@ COPY --from=builder /data/logseq/public ./public
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm i
 
-RUN cd ./public/static && yarn install && yarn rebuild:better-sqlite3
+RUN cd ./public/static && yarn install && yarn rebuild:all
