@@ -73,6 +73,8 @@ PS C:\> docker run -d -i  `
 	     bash -c "xvfb-run node /home/logseq/graph/publish.mjs -p /home/logseq/graph/KnowledgeGraph -t /home/logseq/graph/build_trace.txt -o /home/logseq/graph/HTMLOutput > /home/logseq/graph/build.log"
 ```
 
+- Use logseq-publish on gitlab: [@MarkusPic](https://gist.github.com/MarkusPic) provide an example based on gitlab CI [.gitlab-ci.yml](https://gist.github.com/MarkusPic/a757e52b2be8013161165483ad9bf4ed)
+
 ## Local development
 
 - clone https://github.com/logseq/logseq.git & https://github.com/pengx17/logseq-publish.git
