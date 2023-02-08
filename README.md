@@ -9,18 +9,17 @@ This action is the missing piece for achieving a complete CD workflow for your p
 
 ## Example Logseq Graphs Published with this Action
 
-- https://docs.logseq.com/
-- https://note.xuanwo.io/
-- https://pengx17.github.io/knowledge-garden/
-- https://io-oi.me/wiki/
-- https://docs.unickcheng.cc/
+- [Logseq documentation](https://docs.logseq.com/)
+- [Xuanwo's Note](https://note.xuanwo.io/)
+- [Knowledge Garden](https://pengx17.github.io/knowledge-garden/)
+- [Wiki of reuixiy!](https://io-oi.me/wiki/)
+- [Zhicheng's docs](https://docs.unickcheng.cc/)
 
 ## Usage
 
-A video walk through
-https://www.youtube.com/watch?v=UYqJcFEYUsY
+A [video](https://www.youtube.com/watch?v=UYqJcFEYUsY) to walk through.
 
-Firstly, add this step to your Github workflow. You can refer to My Example Graph's [workflows/main.yml](https://github.com/pengx17/knowledge-garden/blob/main/.github/workflows/main.yml) as an example.
+Firstly, add this step to your GitHub workflow. You can refer to My Example Graph's [workflows/main.yml](https://github.com/pengx17/knowledge-garden/blob/main/.github/workflows/main.yml) as an example.
 
 ```yml
 steps:
@@ -37,13 +36,13 @@ steps:
       clean: true
 ```
 
-Whenever you push changes to your Github repo, your graph will be published to the `gh-pages` branch. A few minutes later, your GitHub Pages will get updated.
+Whenever you push changes to your GitHub repo, your graph will be published to the `gh-pages` branch. A few minutes later, your GitHub Pages will get updated.
 
 ## All options
 
 - `src`: Publish graph src directory. Defaults to `` (empty string, root repo directory).
 - `dest`: Publish destination directory. Defaults to `www`.
-- `trace`: Whether or not to generate and publish trace file for debugging. This trace file will be uploaded as an artifact to the run. Defaults to `true`.
+- `trace`: Whether to generate and publish trace file for debugging. This trace file will be uploaded as an artifact to the run. Defaults to `true`.
 - `theme`: Selected theme. Defaults to `light`.
 
 ## How it works
@@ -73,7 +72,7 @@ PS C:\> docker run -d -i  `
 	     bash -c "xvfb-run node /home/logseq/graph/publish.mjs -p /home/logseq/graph/KnowledgeGraph -t /home/logseq/graph/build_trace.txt -o /home/logseq/graph/HTMLOutput > /home/logseq/graph/build.log"
 ```
 
-- Use logseq-publish on gitlab: [@MarkusPic](https://gist.github.com/MarkusPic) provide an example based on gitlab CI [.gitlab-ci.yml](https://gist.github.com/MarkusPic/a757e52b2be8013161165483ad9bf4ed)
+- Use logseq-publish on gitlab: [@MarkusPic](https://gist.github.com/MarkusPic) provides an example based on gitlab CI [.gitlab-ci.yml](https://gist.github.com/MarkusPic/a757e52b2be8013161165483ad9bf4ed)
 
 ## Local development
 
