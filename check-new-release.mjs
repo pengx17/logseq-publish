@@ -1,28 +1,45 @@
-import { execSync } from "child_process";
-
-(async () => {
+async function getLogseqLatestTag() {
   // Fetch the latest release from the Logseq repository
   const res = await fetch(
     "https://api.github.com/repos/logseq/logseq/releases/latest"
   );
 
-  console.log(res);
-
   const latestRelease = await res.json();
 
   // Get the tag name from the latest release
-  const latestTagName = latestRelease.tag_name;
+  return latestRelease.tag_name;
+}
+
+async function getDockerTags() {
+  const ghcrToken = process.env.GHCR_TOKEN;
+  const res = await fetch(
+    "https://api.github.com/repos/logseq/logseq/releases/latest",
+    {
+      headers: {
+        Authorization: `Bearer ${ghcrToken}`,
+      }
+    }
+  );
+  return (await res.json()).tags;
+}
+
+(async () => {
+  const latestTagName = await getLogseqLatestTag()
 
   if (!latestTagName) {
     throw new Error("Unable to fetch the latest release tag name");
   }
 
-  // Fetch all tags from the current repository
-  const gitTags = execSync("git tag", { encoding: "utf-8" });
+  const tags = await getDockerTags();
 
-  // Check if the latest Logseq tag is present in the current repository
-  const isNewRelease = !gitTags.split("\n").includes(latestTagName);
+  if (!tags) {
+    throw new Error('Docker tags not being found')
+  }
 
-  console.log(`::set-output name=isNewRelease::${isNewRelease}`);
-  console.log(`::set-output name=latestTag::${latestTagName}`);
+  // Check if the latest Logseq tag is present in the Docker tags
+  const isNewRelease = !dockerTags.tags.includes(latestTagName);
+
+  // Write output to the GITHUB_OUTPUT file
+  fs.appendFileSync(process.env.GITHUB_OUTPUT, `isNewRelease=${isNewRelease}\n`);
+  fs.appendFileSync(process.env.GITHUB_OUTPUT, `latestTag=${latestTagName}\n`);
 })();

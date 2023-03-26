@@ -3,7 +3,7 @@ name: Nightly Build
 on:
   workflow_dispatch:
   schedule: # Every workday at the 2 P.M. (UTC) we run a scheduled nightly build
-    - cron: '0 15 * * MON-FRI'
+    - cron: "0 15 * * MON-FRI"
 
 jobs:
   check-new-release:
@@ -19,9 +19,17 @@ jobs:
         id: check-release
         run: |
           node check-new-release.mjs
-      
-      - uses: ./.github/workflows/build-docker.yml
-        if: steps.check-release.outputs.isNewRelease == 'true'
+
+      - name: Read GITHUB_OUTPUT
+        id: read-output
+        run: |
+          echo "::set-output name=isNewRelease::$(grep '^isNewRelease=' output.txt | cut -d= -f2)"
+          echo "::set-output name=latestTag::$(grep '^latestTag=' output.txt | cut -d= -f2)"
+
+      - name: Trigger build docker workflow
+        if: steps.read-output.outputs.isNewRelease == 'true'
+        uses: benc-uk/workflow-dispatch@v1
         with:
-          tag: steps.check-release.outputs.latestTag
-          publish_tag: steps.check-release.outputs.latestTag
+          workflow: Build Docker Images
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{"tag": "${{ steps.read-output.outputs.latestTag }}", "publish_tag": "${{ steps.read-output.outputs.latestTag }}"}'
