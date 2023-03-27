@@ -11,12 +11,16 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 18
+
       - name: Check for new release
         id: check-release
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
         run: |
           node check-new-release.mjs
 
