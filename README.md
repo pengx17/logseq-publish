@@ -44,6 +44,7 @@ Whenever you push changes to your GitHub repo, your graph will be published to t
 - `dest`: Publish destination directory. Defaults to `www`.
 - `trace`: Whether to generate and publish trace file for debugging. This trace file will be uploaded as an artifact to the run. Defaults to `true`.
 - `theme`: Selected theme. Defaults to `light`.
+- `version`: the Logseq App version. Note: only [a few of the versions](https://github.com/pengx17/logseq-publish/pkgs/container/logseq-publish/versions?filters%5Bversion_type%5D=tagged) are available and may not work any longer.
 
 ## How it works
 
