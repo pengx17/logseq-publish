@@ -20,6 +20,7 @@ async function getDockerTags() {
       }
     }
   );
+  console.log(res);
   return (await res.json()).tags;
 }
 
