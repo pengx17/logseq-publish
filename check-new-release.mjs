@@ -13,7 +13,7 @@ async function getLogseqLatestTag() {
 async function getDockerTags() {
   const ghcrToken = process.env.GHCR_TOKEN;
   const res = await fetch(
-    "https://api.github.com/repos/logseq/logseq/releases/latest",
+  "https://ghcr.io/v2/pengx17/logseq-publish/tags/list",
     {
       headers: {
         Authorization: `Bearer ${ghcrToken}`,
