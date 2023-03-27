@@ -28,8 +28,8 @@ jobs:
       - name: Read GITHUB_OUTPUT
         id: read-output
         run: |
-          echo "name=isNewRelease::$(grep '^isNewRelease=' check-release.out.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
-          echo "name=latestTag::$(grep '^latestTag=' check-release.out.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
+          echo "isNewRelease=$(grep '^isNewRelease=' check-release.out.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
+          echo "latestTag=$(grep '^latestTag=' check-release.out.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
 
       - name: Trigger build docker workflow
         if: steps.read-output.outputs.isNewRelease == 'true'
