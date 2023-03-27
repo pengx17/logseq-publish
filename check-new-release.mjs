@@ -38,7 +38,7 @@ async function getDockerTags() {
   }
 
   // Check if the latest Logseq tag is present in the Docker tags
-  const isNewRelease = !dockerTags.tags.includes(latestTagName);
+  const isNewRelease = !tags.includes(latestTagName);
 
   // Write output to the GITHUB_OUTPUT file
   fs.appendFileSync(process.env.GITHUB_OUTPUT, `isNewRelease=${isNewRelease}\n`);
