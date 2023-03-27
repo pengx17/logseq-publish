@@ -35,6 +35,6 @@ jobs:
         if: steps.read-output.outputs.isNewRelease == 'true'
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: Build Docker Images
+          workflow: Manual Build
           token: ${{ secrets.GITHUB_TOKEN }}
           inputs: '{"tag": "${{ steps.read-output.outputs.latestTag }}", "publish_tag": "${{ steps.read-output.outputs.latestTag }}"}'
