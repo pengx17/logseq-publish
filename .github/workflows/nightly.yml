@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Create GITHUB_OUTPUT file
+        run: echo "GITHUB_OUTPUT=$(pwd)/output.txt" >> $GITHUB_ENV
+
       - name: Check for new release
         id: check-release
         env:
