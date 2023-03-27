@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 async function getLogseqLatestTag() {
   // Fetch the latest release from the Logseq repository
   const res = await fetch(
