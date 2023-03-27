@@ -31,9 +31,9 @@ async function getDockerTags() {
     throw new Error("Unable to fetch the latest release tag name");
   }
 
-  const tags = await getDockerTags();
+  const dockerTags = await getDockerTags();
 
-  if (!tags) {
+  if (!dockerTags) {
     throw new Error('Docker tags not being found')
   }
 
