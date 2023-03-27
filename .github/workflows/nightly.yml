@@ -21,6 +21,7 @@ jobs:
         id: check-release
         env:
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           node check-new-release.mjs
 

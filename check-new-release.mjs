@@ -2,8 +2,14 @@ import fs from "node:fs";
 
 async function getLogseqLatestTag() {
   // Fetch the latest release from the Logseq repository
+  const token = process.env.GH_TOKEN;
   const res = await fetch(
-    "https://api.github.com/repos/logseq/logseq/releases/latest"
+    "https://api.github.com/repos/logseq/logseq/releases/latest",
+    {
+      headers: {
+        Authorization: `token ${token}`,
+      },
+    }
   );
 
   const latestRelease = await res.json();
