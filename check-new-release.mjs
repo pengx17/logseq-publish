@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import fs from "node:fs";
 
 async function getLogseqLatestTag() {
   // Fetch the latest release from the Logseq repository
@@ -15,19 +15,18 @@ async function getLogseqLatestTag() {
 async function getDockerTags() {
   const ghcrToken = process.env.GHCR_TOKEN;
   const res = await fetch(
-  "https://ghcr.io/v2/pengx17/logseq-publish/tags/list",
+    "https://ghcr.io/v2/pengx17/logseq-publish/tags/list",
     {
       headers: {
         Authorization: `Bearer ${ghcrToken}`,
-      }
+      },
     }
   );
-  console.log(res);
   return (await res.json()).tags;
 }
 
 (async () => {
-  const latestTagName = await getLogseqLatestTag()
+  const latestTagName = await getLogseqLatestTag();
 
   if (!latestTagName) {
     throw new Error("Unable to fetch the latest release tag name");
@@ -36,13 +35,16 @@ async function getDockerTags() {
   const dockerTags = await getDockerTags();
 
   if (!dockerTags) {
-    throw new Error('Docker tags not being found')
+    throw new Error("Docker tags not being found");
   }
 
   // Check if the latest Logseq tag is present in the Docker tags
   const isNewRelease = !dockerTags.includes(latestTagName);
 
-  // Write output to the GITHUB_OUTPUT file
-  fs.appendFileSync(process.env.GITHUB_OUTPUT, `isNewRelease=${isNewRelease}\n`);
-  fs.appendFileSync(process.env.GITHUB_OUTPUT, `latestTag=${latestTagName}\n`);
+  fs.writeFileSync(
+    "check-release.out.txt",
+    `isNewRelease=${isNewRelease}\nlatestTag=${latestTagName}\n`
+  );
+
+  console.log(fs.readFileSync("check-release.out.txt", "utf-8"));
 })();

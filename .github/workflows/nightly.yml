@@ -17,9 +17,6 @@ jobs:
         with:
           node-version: 18
 
-      - name: Create GITHUB_OUTPUT file
-        run: echo "GITHUB_OUTPUT=$(pwd)/output.txt" >> $GITHUB_ENV
-
       - name: Check for new release
         id: check-release
         env:
@@ -30,8 +27,8 @@ jobs:
       - name: Read GITHUB_OUTPUT
         id: read-output
         run: |
-          echo "::set-output name=isNewRelease::$(grep '^isNewRelease=' output.txt | cut -d= -f2)"
-          echo "::set-output name=latestTag::$(grep '^latestTag=' output.txt | cut -d= -f2)"
+          echo "name=isNewRelease::$(grep '^isNewRelease=' check-release.out.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
+          echo "name=latestTag::$(grep '^latestTag=' check-release.out.txt | cut -d= -f2)" >> $GITHUB_OUTPUT
 
       - name: Trigger build docker workflow
         if: steps.read-output.outputs.isNewRelease == 'true'
