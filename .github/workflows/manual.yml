@@ -12,16 +12,10 @@ on:
         description: "Tag of ghcr.io/pengx17/logseq-publish"
         required: false
         type: string
-      publish_latest_tag:
-        description: "When true, push the latest tag in addition to the publish_tag"
-        default: false
-        required: false
-        type: boolean
 
 jobs:
   call-build-docker:
     uses: ./.github/workflows/build-docker.yml
     with:
-      tag: ${{ inputs.tag }}
-      publish_tag: ${{ inputs.publish_tag || inputs.tag }}
-      publish_latest_tag: ${{ inputs.publish_latest_tag == 'true' }}
+      tag: ${{ github.event.inputs.tag }}
+      publish_tag: ${{ github.event.inputs.publish_tag || github.event.inputs.tag }}
