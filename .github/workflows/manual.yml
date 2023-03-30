@@ -24,4 +24,4 @@ jobs:
     with:
       tag: ${{ github.event.inputs.tag }}
       publish_tag: ${{ github.event.inputs.publish_tag || github.event.inputs.tag }}
-      publish_latest_tag: ${{ github.event.inputs.publish_latest_tag }}
+      publish_latest_tag: ${{ github.event.inputs.publish_latest_tag == 'true' }}
