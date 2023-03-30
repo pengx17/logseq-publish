@@ -12,6 +12,11 @@ on:
         description: "Tag of ghcr.io/pengx17/logseq-publish"
         required: true
         type: string
+      publish_latest_tag:
+        description: "When true, push the latest tag in addition to the publish_tag"
+        default: false
+        required: false
+        type: boolean
 
 env:
   registry: pengx17
@@ -45,6 +50,8 @@ jobs:
         with:
           push: true
           context: .
-          tags: ghcr.io/${{ env.registry }}/logseq-publish:${{ inputs.publish_tag }}
+          tags: |
+            ghcr.io/${{ env.registry }}/logseq-publish:${{ inputs.publish_tag }}
+            ${{ inputs.publish_latest_tag == 'true' && format(',ghcr.io/{0}/logseq-publish:latest', env.registry) }}
           build-args: |
             LOGSEQ_TAG=${{ inputs.tag }}
