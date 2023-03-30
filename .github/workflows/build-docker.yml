@@ -51,7 +51,6 @@ jobs:
           push: true
           context: .
           tags: |
-            ghcr.io/${{ env.registry }}/logseq-publish:${{ inputs.publish_tag }}
-            ${{ inputs.publish_latest_tag == 'true' && format(',ghcr.io/{0}/logseq-publish:latest', env.registry) }}
+            ${{ inputs.publish_latest_tag == 'true' && 'ghcr.io/${{ env.registry }}/logseq-publish:${{ inputs.publish_tag }}, ghcr.io/${{ env.registry }}/logseq-publish:latest' }} || 'ghcr.io/${{ env.registry }}/logseq-publish:${{ inputs.publish_tag }}'
           build-args: |
             LOGSEQ_TAG=${{ inputs.tag }}

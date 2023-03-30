@@ -22,6 +22,6 @@ jobs:
   call-build-docker:
     uses: ./.github/workflows/build-docker.yml
     with:
-      tag: ${{ github.event.inputs.tag }}
-      publish_tag: ${{ github.event.inputs.publish_tag || github.event.inputs.tag }}
-      publish_latest_tag: ${{ github.event.inputs.publish_latest_tag == 'true' }}
+      tag: ${{ inputs.tag }}
+      publish_tag: ${{ inputs.publish_tag || inputs.tag }}
+      publish_latest_tag: ${{ inputs.publish_latest_tag == 'true' }}
