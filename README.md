@@ -26,6 +26,8 @@ steps:
   - uses: actions/checkout@v2
   - name: Logseq Publish 🚩
     uses: pengx17/logseq-publish@v0.1
+    with:
+      version: latest
   - name: add a nojekyll file # to make sure asset paths are correctly identified
     run: touch $GITHUB_WORKSPACE/www/.nojekyll
   - name: Deploy 🚀
