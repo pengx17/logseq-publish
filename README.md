@@ -31,7 +31,7 @@ steps:
   - name: add a nojekyll file # to make sure asset paths are correctly identified
     run: touch $GITHUB_WORKSPACE/www/.nojekyll
   - name: Deploy 🚀
-    uses: JamesIves/github-pages-deploy-action@4.1.9
+    uses: JamesIves/github-pages-deploy-action@4
     with:
       branch: gh-pages # The branch the action should deploy to.
       folder: www # The folder the action should deploy.
