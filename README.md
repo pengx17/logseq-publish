@@ -1,3 +1,5 @@
+> **Note**: Logseq team has published [its official solution](https://github.com/logseq/publish-spa). As a result, I will archive mine here. Thanks for your supports thus far!
+
 # Logseq Publish Action
 
 Publish your [Logseq](http://github.com/logseq/logseq) graph with a GitHub Action. ✨
